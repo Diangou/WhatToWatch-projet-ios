@@ -18,7 +18,7 @@ public struct HeaderView: View {
                 Text("WHAT 2 WATCH")
                     .font(.system(size: 30))
                     .bold()
-                    .foregroundColor(.white)
+                    .foregroundColor(.black)
             }
             HStack{
                 Image("logo-cinema")

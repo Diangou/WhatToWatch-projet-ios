@@ -1,3 +1,10 @@
+
+//
+//  FilmView.swift
+//  WhatToWatch
+//
+//  Created by CAMARA Diangou on 05/11/2025.
+//
 //
 //  FilmView.swift
 //  WhatToWatch
@@ -5,38 +12,51 @@
 //  Created by CAMARA Diangou on 05/11/2025.
 //
 
+//
+//  FilmView.swift
+//  WhatToWatch
+//
+//  Created by CAMARA Diangou on 05/11/2025.
+//
 import SwiftUI
+import DesignSystem
 
 struct FilmView: View {
-    let films = FilmRepository.shared.loadFilms()
+    @StateObject private var viewModel = FilmViewModel()
     
     var body: some View {
         NavigationView {
-            List(films) { film in
-                NavigationLink(destination: FilmDetailView(film: film)) {
-                    HStack {
-                        AsyncImage(url: URL(string: film.afficheURL)) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Color.gray.opacity(0.3)
-                        }
-                        .frame(width: 70, height: 100)
-                        .cornerRadius(8)
+            ZStack {
+                LinearGradient(
+                    colors: [Color.black, Color.red.opacity(0.8)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .ignoresSafeArea()
+                
+                ScrollView(.vertical, showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 24) {
                         
-                        VStack(alignment: .leading) {
-                            Text(film.titre)
-                                .font(.headline)
-                                .foregroundStyle(.black)
-                            Text("\(film.annee) • \(film.realisateur)")
-                                .font(.subheadline)
-                                .foregroundColor(.secondary)
+                        ForEach(viewModel.categories, id: \.self) { category in
+                            VStack(alignment: .leading, spacing: 12) {
+                                Text(category)
+                                    .font(.largeTitle.bold())
+                                    .foregroundColor(.white)
+                                    .padding(.horizontal)
+                                
+                                let filmsInCategory = viewModel.films.filter {
+                                    $0.categories.lowercased() == category.lowercased()
+                                }
+                                
+                                FilmListViewWrapper(films: filmsInCategory)
+                            }
                         }
                     }
+                    .padding(.vertical)
                 }
             }
-            .navigationTitle("🎞️ Films")
+            .navigationTitle("Films")
+            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
