@@ -19,6 +19,7 @@ struct Film: Identifiable, Codable {
     let note: Double
     let description: String
     let afficheURL: String
+    let coverURL: String
 }
 
 struct FilmList: Codable {
