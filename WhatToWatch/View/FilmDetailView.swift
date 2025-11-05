@@ -9,42 +9,83 @@ import SwiftUI
 
 struct FilmDetailView: View {
     let film: Film
+    let backgroundGradient = LinearGradient(
+        colors: [Color.red.opacity(0.9), Color.black],
+        startPoint: .top,
+        endPoint: .bottom)
     
     var body: some View {
         ScrollView {
-            VStack(alignment: .leading, spacing: 16) {
-                AsyncImage(url: URL(string: film.afficheURL)) { image in
+            VStack(spacing: 30) {
+                AsyncImage(url: URL(string: film.coverURL)) { image in
                     image
                         .resizable()
                         .aspectRatio(contentMode: .fit)
+                        .overlay(Color.black.opacity(0.2))
                 } placeholder: {
-                    Color.gray.opacity(0.3)
-                        .frame(height: 300)
+                    ProgressView()
                 }
-                
-                VStack(alignment: .leading, spacing: 8) {
-                    Text(film.titre)
-                        .font(.largeTitle)
-                        .bold()
-                 
-                    HStack {
-                        Text(String(film.note))
-                        Text(String(film.duree))
+                //Section Infos Films + Poster
+                VStack {
+                    HStack () {
+                        VStack (alignment: .leading) {
+                            Text(film.titre)
+                                .foregroundColor(.white)
+                                .font(.system(size: 25))
+                                .bold()
+                            Text(String(film.annee))
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                            Text(film.realisateur)
+                                .foregroundColor(.white)
+                            Divider()
+                            HStack {
+                                Image(systemName: "star.fill")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 12))
+                                Text(String(film.note))
+                                    .font(.system(size: 15))
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                            HStack {
+                                Image(systemName: "hourglass")
+                                    .foregroundColor(.white)
+                                    .font(.system(size: 15))
+                                Text(String(film.duree))
+                                    .font(.system(size: 15))
+                                    .bold()
+                                    .foregroundColor(.white)
+                            }
+                        }
+                        // Poster
+                        ZStack {
+                            AsyncImage(url: URL(string: film.afficheURL)) { image in
+                                image
+                                    .resizable()
+                                    .frame(width: 150, height: 220)
+                            } placeholder: {
+                                ProgressView()
+                            }
+                        }
+                        .padding(.bottom, 20)
                     }
-                    .font(.subheadline)
-                    .foregroundColor(.secondary)
+                    .padding(10)
+                    Divider().background(Color.white)
                     
-                    
-                    
-                    Divider()
-                    
+                }
+                .padding(.horizontal, 35)
+                
+                HStack () {
                     Text(film.description)
                         .font(.body)
-                }
-                .padding()
+                        .foregroundColor(.white)
+                        .font(.system(size: 20))
+                }.padding(.horizontal, 35)
             }
         }
-        .navigationTitle(film.titre)
+        .ignoresSafeArea()
+        .background(backgroundGradient)
     }
 }
 
