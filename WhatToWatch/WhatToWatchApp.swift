@@ -11,7 +11,7 @@ import SwiftUI
 struct WhatToWatchApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            FilmView()
         }
     }
 }

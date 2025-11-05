@@ -14,22 +14,9 @@
 		0A7636722EBB3A0B004E06D2 /* WhatToWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WhatToWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		0A76368D2EBB4143004E06D2 /* Exceptions for "WhatToWatch" folder in "WhatToWatch" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				"Package/Users/dc253376/Documents/WhatToWatch-projet-ios/WhatToWatch/Package/DesignSystem",
-			);
-			target = 0A7636712EBB3A0B004E06D2 /* WhatToWatch */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		0A7636742EBB3A0B004E06D2 /* WhatToWatch */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				0A76368D2EBB4143004E06D2 /* Exceptions for "WhatToWatch" folder in "WhatToWatch" target */,
-			);
 			path = WhatToWatch;
 			sourceTree = "<group>";
 		};
