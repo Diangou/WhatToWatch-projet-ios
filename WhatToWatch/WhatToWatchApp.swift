@@ -9,9 +9,20 @@ import SwiftUI
 
 @main
 struct WhatToWatchApp: App {
+    @StateObject var favorites = FavoritesFilms() 
+
     var body: some Scene {
         WindowGroup {
-            FilmView()
+            TabView {
+                Tab("Home", systemImage: "house") {
+                    FilmView()
+                        .environmentObject(favorites)
+                }
+                Tab("Favorites", systemImage: "heart.fill") {
+                    FilmsFavoritesView()
+                        .environmentObject(favorites)
+                }
+            }
         }
     }
 }

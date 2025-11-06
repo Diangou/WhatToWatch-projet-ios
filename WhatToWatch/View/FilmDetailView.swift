@@ -8,10 +8,9 @@
 import SwiftUI
 import DesignSystem
 
-@Observable
-class FavoritesFilms {
+class FavoritesFilms: ObservableObject {
     private let key = "FavoritesFilms"
-    private(set) var films: Set<Int>
+    @Published private(set) var films: Set<Int>
 
     init() {
         if let saved = UserDefaults.standard.array(forKey: key) as? [Int] {
@@ -29,25 +28,27 @@ class FavoritesFilms {
         films.insert(film.id)
         save()
         print("Film ajouté en favoris : \(film.titre) (\(film.annee)) par \(film.realisateur)")
-        print("Stockés en favoris:", films)
+        print("AStockés en favoris:", films)
     }
 
     func remove(_ film: Film) {
         films.remove(film.id)
         save()
         print("Film supprimé des favoris \(film.titre) (\(film.annee))")
-        print("Stockés en favoris", films)
+        print("RStockés en favoris", films)
     }
 
     private func save() {
         UserDefaults.standard.set(Array(films), forKey: key)
+        print("SStockés en favoris", films)
     }
+    
 }
 
 
 struct FilmDetailView: View {
     
-    @State var favorites = FavoritesFilms()
+    @EnvironmentObject var favorites: FavoritesFilms
     let film: Film
     let backgroundGradient = LinearGradient(
         colors: [Color.red.opacity(0.9), Color.black],
@@ -141,4 +142,5 @@ struct FilmDetailView: View {
 
 #Preview {
     FilmDetailView(film: FilmRepository.shared.loadFilms().first!)
+        .environmentObject(FavoritesFilms()) // 👈 obligatoire
 }

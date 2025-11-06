@@ -81,4 +81,6 @@ struct FilmView: View {
 
 #Preview {
     FilmView()
+        .environmentObject(FavoritesFilms())
 }
+
