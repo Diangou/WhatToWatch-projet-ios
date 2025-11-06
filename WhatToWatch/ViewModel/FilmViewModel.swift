@@ -28,4 +28,3 @@ final class FilmViewModel: ObservableObject {
         films.filter { $0.categories.lowercased() == category.lowercased() }
     }
 }
-
