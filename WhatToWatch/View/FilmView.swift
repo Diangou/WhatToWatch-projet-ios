@@ -1,17 +1,3 @@
-
-//
-//  FilmView.swift
-//  WhatToWatch
-//
-//  Created by CAMARA Diangou on 05/11/2025.
-//
-//
-//  FilmView.swift
-//  WhatToWatch
-//
-//  Created by CAMARA Diangou on 05/11/2025.
-//
-
 //
 //  FilmView.swift
 //  WhatToWatch
@@ -48,13 +34,11 @@ struct FilmView: View {
                     endPoint: .bottom
                 )
                 .ignoresSafeArea()
-                
                 ScrollView(.vertical, showsIndicators: false) {
+                    HeaderView(viewModel: HeaderViewModel())
+
                     VStack(alignment: .leading, spacing: 24) {
-                        Text("Nos Catégories")
-                            .font(.largeTitle.bold())
-                            .foregroundColor(.white)
-                            .padding(.horizontal)
+                        
                         ButtonCategoryListView(viewModel: categoryButtonsListViewModel)
                         
                         ForEach(viewModel.categories, id: \.self) { category in
@@ -78,9 +62,3 @@ struct FilmView: View {
         }
     }
 }
-
-#Preview {
-    FilmView()
-        .environmentObject(FavoritesFilms())
-}
-

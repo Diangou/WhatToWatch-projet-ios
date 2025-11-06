@@ -24,7 +24,7 @@ public struct ButtonCategoryView: View {
                 .font(.system(size: 16, weight: .bold))
                 .foregroundColor(.white)
                 .padding(.vertical, 12)
-                .padding(.horizontal, 25)
+                .padding(.horizontal, 27)
                 .background(Color.black)
                 .overlay(
                     RoundedRectangle(cornerRadius: 25)
