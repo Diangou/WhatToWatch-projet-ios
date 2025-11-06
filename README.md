@@ -14,6 +14,12 @@ Chaque étudiant devra créer un **package Design System** et l’intégrer dans
 
 ---
 
+## Impressions personnelles
+
+Note : 15/20
+
+---
+
 ## 👥 Contributeurs
 
 - Laura KOKONYANGE-NKASEI  
