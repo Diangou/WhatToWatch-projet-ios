@@ -5,31 +5,37 @@
 //  Created by CAMARA Diangou on 05/11/2025.
 //
 
-
 import SwiftUI
-import PhotosUI
-
 
 public struct HeaderView: View {
-    public init (){}
+    @ObservedObject var viewModel: HeaderViewModel
+    
+    public init(viewModel: HeaderViewModel) {
+        self.viewModel = viewModel
+    }
+    
     public var body: some View {
-        HStack (spacing: 25){
-            HStack{
-                Text("WHAT 2 WATCH")
-                    .font(.system(size: 30))
-                    .bold()
-                    .foregroundColor(.black)
-            }
-            HStack{
-                Image("logo-cinema")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(height: 80)
-            }
+        HStack(spacing: 12) {
+            Image(systemName: "film.fill")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 32, height: 32)
+                .foregroundColor(.white)
+            
+            Text("WhatToWatch")
+                .font(.title2.bold())
+                .foregroundColor(.white)
+            
+            Spacer()
+            
+           
         }
+        .padding(.horizontal)
+        .padding(.top, 10)
+       
     }
 }
-#Preview {
-    HeaderView()
-}
 
+#Preview {
+    HeaderView(viewModel: HeaderViewModel())
+}
