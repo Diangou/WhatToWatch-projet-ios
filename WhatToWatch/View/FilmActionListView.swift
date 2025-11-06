@@ -9,7 +9,7 @@
 import SwiftUI
 import DesignSystem
 
-struct FilmListViewWrapper: View {
+struct FilmListView: View {
     let films: [Film]
     
     var body: some View {

@@ -24,6 +24,21 @@ import DesignSystem
 struct FilmView: View {
     @StateObject private var viewModel = FilmViewModel()
     
+    @StateObject private var categoryButtonsListViewModel = ButtonCategoryListViewModel(categories: [
+        ButtonCategoryViewModel(
+            title: "Drame",
+            destination: AnyView(FilmDrameView())
+        ),
+        ButtonCategoryViewModel(
+            title: "Action",
+            destination: AnyView(FilmActionView())
+        ),
+        ButtonCategoryViewModel(
+            title: "Comédie",
+            destination: AnyView(FilmComedieView())
+        )
+    ])
+    
     var body: some View {
         NavigationView {
             ZStack {
@@ -36,6 +51,11 @@ struct FilmView: View {
                 
                 ScrollView(.vertical, showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 24) {
+                        Text("Nos Catégories")
+                            .font(.largeTitle.bold())
+                            .foregroundColor(.white)
+                            .padding(.horizontal)
+                        ButtonCategoryListView(viewModel: categoryButtonsListViewModel)
                         
                         ForEach(viewModel.categories, id: \.self) { category in
                             VStack(alignment: .leading, spacing: 12) {
@@ -48,19 +68,16 @@ struct FilmView: View {
                                     $0.categories.lowercased() == category.lowercased()
                                 }
                                 
-                                FilmListViewWrapper(films: filmsInCategory)
+                                FilmListView(films: filmsInCategory)
                             }
                         }
                     }
                     .padding(.vertical)
                 }
             }
-            .navigationTitle("Films")
-            .navigationBarTitleDisplayMode(.inline)
         }
     }
 }
-
 
 #Preview {
     FilmView()
