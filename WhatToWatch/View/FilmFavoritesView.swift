@@ -8,13 +8,13 @@
 import SwiftUI
 
 struct FilmsFavoritesView: View {
-    @State var favorites = FavoritesFilms()
+    @EnvironmentObject var favorites: FavoritesFilms
     private let repository = FilmRepository.shared
-
+    
     var favoriteFilms: [Film] {
         repository.loadFilms().filter { favorites.films.contains($0.id) }
     }
-
+    
     var body: some View {
         NavigationView {
             if favoriteFilms.isEmpty {
@@ -34,12 +34,12 @@ struct FilmsFavoritesView: View {
                         HStack(spacing: 15) {
                             AsyncImage(url: URL(string: film.afficheURL)) { image in
                                 image.resizable()
-                                     .frame(width: 60, height: 90)
-                                     .cornerRadius(8)
+                                    .frame(width: 60, height: 90)
+                                    .cornerRadius(8)
                             } placeholder: {
                                 ProgressView()
                             }
-
+                            
                             VStack(alignment: .leading, spacing: 5) {
                                 Text(film.titre)
                                     .font(.headline)
@@ -50,9 +50,9 @@ struct FilmsFavoritesView: View {
                                     .font(.footnote)
                                     .foregroundColor(.secondary)
                             }
-
+                            
                             Spacer()
-
+                            
                             Image(systemName: "heart.fill")
                                 .foregroundColor(.red)
                         }
@@ -68,4 +68,6 @@ struct FilmsFavoritesView: View {
 
 #Preview {
     FilmsFavoritesView()
+        .environmentObject(FavoritesFilms())
 }
+
