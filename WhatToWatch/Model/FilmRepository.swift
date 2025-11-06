@@ -9,8 +9,11 @@ import Foundation
 
 class FilmRepository {
     static let shared = FilmRepository()
+    private var films: [Film]
     
-    private init() {}
+    private init() {
+        films = []
+    }
     
     func loadFilms() -> [Film] {
         guard let url = Bundle.main.url(forResource: "Films", withExtension: "json") else {
@@ -27,4 +30,7 @@ class FilmRepository {
             return []
         }
     }
+    func getFilmById(id: Int) -> Film? {
+            films.first(where: { $0.id == id })
+        }
 }
