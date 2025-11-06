@@ -6,8 +6,48 @@
 //
 
 import SwiftUI
+import DesignSystem
+
+@Observable
+class FavoritesFilms {
+    private let key = "FavoritesFilms"
+    private(set) var films: Set<Int>
+
+    init() {
+        if let saved = UserDefaults.standard.array(forKey: key) as? [Int] {
+            films = Set(saved)
+        } else {
+            films = []
+        }
+    }
+
+    func contains(_ film: Film) -> Bool {
+        films.contains(film.id)
+    }
+
+    func add(_ film: Film) {
+        films.insert(film.id)
+        save()
+        print("Film ajouté en favoris : \(film.titre) (\(film.annee)) par \(film.realisateur)")
+        print("Stockés en favoris:", films)
+    }
+
+    func remove(_ film: Film) {
+        films.remove(film.id)
+        save()
+        print("Film supprimé des favoris \(film.titre) (\(film.annee))")
+        print("Stockés en favoris", films)
+    }
+
+    private func save() {
+        UserDefaults.standard.set(Array(films), forKey: key)
+    }
+}
+
 
 struct FilmDetailView: View {
+    
+    @State var favorites = FavoritesFilms()
     let film: Film
     let backgroundGradient = LinearGradient(
         colors: [Color.red.opacity(0.9), Color.black],
@@ -57,6 +97,16 @@ struct FilmDetailView: View {
                                     .bold()
                                     .foregroundColor(.white)
                             }
+                            HStack {
+                                LikedButtonView(isLiked: favorites.contains(film)) {
+                                    if favorites.contains(film) {
+                                        favorites.remove(film)
+                                    } else {
+                                        favorites.add(film)
+                                    }
+                                }
+                            }
+                            .padding(.top ,10)
                         }
                         // Poster
                         ZStack {
